@@ -1,4 +1,4 @@
-{% set version = '1.1-12' %}
+{% set version = "2.0.3" %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -13,7 +13,7 @@ source:
     - https://cran.r-project.org/src/contrib/princurve_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/princurve/princurve_{{ version }}.tar.gz
 
-  sha256: fc34fd655984d6fe7100bf083c0889181508398de8246b95b1663fe82ecfd7a5
+  sha256: 8249b91a292c6e59f49e82bcccfad5edc1d2af63678b86616b6276c8bc2581f9
 
 build:
   number: 0
