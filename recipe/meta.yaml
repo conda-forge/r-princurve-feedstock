@@ -1,4 +1,4 @@
-{% set version = "2.1.2.1" %}
+{% set version = '2.1.3' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -10,47 +10,52 @@ package:
 source:
   fn: princurve_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/princurve_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/princurve/princurve_{{ version }}.tar.gz
-
-  sha256: c38324faff5b84794b983f399fec970afae62b577b53ea2c007d147905f36929
+    - {{ cran_mirror }}/src/contrib/princurve_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/princurve/princurve_{{ version }}.tar.gz
+  sha256: b7dda2e32de62216cd5348166cfff3088eecada808a6a427025d626387d1cf8a
 
 build:
   merge_build_host: True  # [win]
   number: 0
-  skip: true  # [win32]
-
   rpaths:
     - lib/R/lib/
     - lib/
 
+# Suggests: devtools, testthat
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ compiler('cxx') }}        # [unix]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
   host:
     - r-base
     - r-rcpp
+
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-rcpp
+
 test:
   commands:
-    - $R -e "library('princurve')"  # [not win]
+    - $R -e "library('princurve')"           # [not win]
     - "\"%R%\" -e \"library('princurve')\""  # [win]
 
 about:
-  home: https://CRAN.R-project.org/package=princurve
+  home: https://github.com/dynverse/princurve
   license: GPL-2
-  summary: fits a principal curve to a data matrix in arbitrary dimensions
+  summary: Fitting a principal curve to a data matrix in arbitrary dimensions.
   license_family: GPL2
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'  # [unix]
-  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-2'  # [win]
+
 extra:
    recipe-maintainers:
+    - dpryan79
     - MathiasHaudgaard
     - FrodePedersen
     - ArneKr
