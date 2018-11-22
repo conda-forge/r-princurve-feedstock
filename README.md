@@ -1,13 +1,13 @@
 About r-princurve
 =================
 
-Home: https://CRAN.R-project.org/package=princurve
+Home: https://github.com/dynverse/princurve
 
 Package license: GPL-2
 
 Feedstock license: BSD 3-Clause
 
-Summary: fits a principal curve to a data matrix in arbitrary dimensions
+Summary: Fitting a principal curve to a data matrix in arbitrary dimensions.
 
 
 
