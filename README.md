@@ -3,7 +3,7 @@ About r-princurve
 
 Home: https://github.com/rcannood/princurve
 
-Package license: GPL-2
+Package license: GPL-2.0-only
 
 Feedstock license: BSD-3-Clause
 
